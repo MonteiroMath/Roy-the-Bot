@@ -6,13 +6,24 @@ const TOKEN = process.env.BOT_TOKEN;
 const CLIENT = new Discord.Client();
 const PREFIX = "!roy";
 
+const COMMANDS = {
+  oi: () => "oi pessoal, como voces estao?",
+  test: () => "test",
+  another: () => "another",
+};
+
 CLIENT.on("message", function (message) {
   if (message.author.bot) return;
   if (!message.content.startsWith(PREFIX)) return;
 
   let { command, args } = parseCommand(message.content);
 
-  message.reply(args);
+  if (!COMMANDS.hasOwnProperty(command))
+    return message.reply("Nao sei o que fazer com esse comando");
+
+  let response = COMMANDS[command](args);
+
+  message.reply(response);
 });
 
 CLIENT.login(TOKEN);
