@@ -13,6 +13,8 @@ CLIENT.on("message", function (message) {
 
   let { command, args } = parseCommand(message.content);
 
+  if (!command) return message.reply(COMMANDS.help());
+
   if (!COMMANDS.hasOwnProperty(command))
     return message.reply("Nao sei o que fazer com esse comando");
 
