@@ -1,16 +1,11 @@
 const Discord = require("discord.js");
 const parseCommand = require("./helpers/parseCommand");
+const COMMANDS = require("./commands/commands");
 require("dotenv").config();
 
 const TOKEN = process.env.BOT_TOKEN;
 const CLIENT = new Discord.Client();
 const PREFIX = "!roy";
-
-const COMMANDS = {
-  oi: () => "oi pessoal, como voces estao?",
-  test: () => "test",
-  another: () => "another",
-};
 
 CLIENT.on("message", function (message) {
   if (message.author.bot) return;
