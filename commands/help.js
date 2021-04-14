@@ -3,7 +3,9 @@ function help() {
   Comandos:
   oi: cumprimenta o Roy,
   test: faz um test sem argumentos,
-  testWithArgs: faz um test com argumentos
+  testWithArgs: faz um test com argumentos,
+  bandeto: ban no deto,
+  desbandeto: desban no deto
 `;
 
   return HELP;
