@@ -1,4 +1,5 @@
 const dbAdapter = require("../helpers/dbAdapter");
+const formatMessage = require("../helpers/formatMessage");
 
 function post(args) {
   let query, message;
@@ -9,7 +10,9 @@ function post(args) {
       if (!args[0]) {
         //query for random post
         query = `
-                SELECT * FROM posts
+                SELECT users.username, posts.post_text, posts.post_subject 
+                FROM posts INNER JOIN users 
+                ON poster_id = user_id
                 ORDER BY RAND()
                 LIMIT 1;
               `;
@@ -22,7 +25,7 @@ function post(args) {
       return dbAdapter.getData(query);
     })
     .then((result) => {
-      message = result[0].post_text;
+      message = formatMessage(result[0]);
 
       return dbAdapter.endConnection();
     })
