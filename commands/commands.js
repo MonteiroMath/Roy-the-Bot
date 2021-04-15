@@ -2,6 +2,7 @@ const oi = require("./oi.js");
 const help = require("./help");
 const bandeto = require("./bandeto");
 const desbandeto = require("./desbandeto");
+const post = require("./post");
 
 function test(args) {
   console.log(args);
@@ -19,6 +20,7 @@ const COMMANDS = {
   help,
   bandeto,
   desbandeto,
+  post,
   test,
   testWithArgs,
 };
