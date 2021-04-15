@@ -1,5 +1,5 @@
 function oi() {
-  return "oi pessoal, como voces estao?";
+  return Promise.resolve("oi pessoal, como voces estao?");
 }
 
 module.exports = oi;

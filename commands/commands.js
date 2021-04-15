@@ -21,8 +21,6 @@ const COMMANDS = {
   bandeto,
   desbandeto,
   post,
-  test,
-  testWithArgs,
 };
 
 module.exports = COMMANDS;
