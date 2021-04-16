@@ -32,6 +32,7 @@ function post(args) {
     .then(() => message)
     .catch((err) => {
       console.log(err);
+      return "deu algum pau no sistema eu acho";
     });
 }
 

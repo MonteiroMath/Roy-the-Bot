@@ -1,6 +1,7 @@
 const mysql = require("mysql");
 require("dotenv").config();
 
+//!mudar para dentro do getCOnnection e retornar como resultado?
 var connection;
 
 function getConnection() {
@@ -14,8 +15,7 @@ function getConnection() {
   return new Promise(function (resolve, reject) {
     connection.connect(function (err) {
       if (err) {
-        console.error("error connecting: " + err.stack);
-        return;
+        reject(err.stack);
       }
 
       console.log("connected as id " + connection.threadId);
@@ -27,7 +27,7 @@ function getConnection() {
 function getData(query) {
   return new Promise(function (resolve, reject) {
     connection.query(query, function (err, results, fields) {
-      if (err) throw err;
+      if (err) reject(err);
 
       resolve(results);
     });
@@ -38,10 +38,10 @@ function endConnection() {
   return new Promise(function (resolve, reject) {
     connection.end(function (err) {
       if (err) {
-        console.error(err);
-        return;
+        reject(err);
       }
 
+      console.log("Disconnected from id" + connection.threadId);
       resolve("Disconnected");
     });
   });

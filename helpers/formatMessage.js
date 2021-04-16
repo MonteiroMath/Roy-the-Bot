@@ -1,13 +1,14 @@
+const { MessageEmbed } = require("discord.js");
+
 function formatMessage(data) {
   let { username, post_subject, post_text } = data;
 
-  let result = `
-  Topico: ${post_subject.replace("Re: ", "")}
-  Flooder: ${username}
-  Post: ${post_text}
-  `;
+  const embed = new MessageEmbed()
+    .setTitle(`${post_subject.replace("Re: ", "")}`)
+    .setAuthor(username)
+    .setDescription(post_text);
 
-  return result;
+  return embed;
 }
 
 module.exports = formatMessage;

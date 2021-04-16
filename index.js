@@ -22,7 +22,6 @@ CLIENT.on("message", function (message) {
     return message.channel.send("Nao sei o que fazer com esse comando");
 
   COMMANDS[command](args).then((result) => message.channel.send(result));
-  
 });
 
 CLIENT.login(TOKEN);
