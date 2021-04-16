@@ -1,5 +1,6 @@
 const dbAdapter = require("../helpers/dbAdapter");
 const formatMessage = require("../helpers/formatMessage");
+const mysql = require("mysql");
 
 function post(args) {
   let query, message;
@@ -17,9 +18,25 @@ function post(args) {
                 LIMIT 1;
               `;
       } else if (args[0] === "main") {
-        //query for post from main topic
+        query = `
+                SELECT users.username, posts.post_text, posts.post_subject 
+                FROM posts INNER JOIN users 
+                ON poster_id = user_id
+                WHERE posts.post_subject LIKE "%Chat EEEEEEEEEEEE"
+                ORDER BY RAND()
+                LIMIT 1;
+              `;
       } else {
-        //query for a random post from an author
+        let autor = mysql.escape(`%${args[0]}%`);
+
+        query = `
+                SELECT users.username, posts.post_text, posts.post_subject 
+                FROM posts INNER JOIN users 
+                ON poster_id = user_id
+                WHERE users.username LIKE ${autor}
+                ORDER BY RAND()
+                LIMIT 1;
+              `;
       }
 
       return dbAdapter.getData(query);
