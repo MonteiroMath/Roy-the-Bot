@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 require("dotenv").config();
 
-//!mudar para dentro do getCOnnection e retornar como resultado? Verificar comportamento com 2 requests rápidos
+//!mudar para dentro do getCOnnection
 var connection;
 
 function getConnection() {
