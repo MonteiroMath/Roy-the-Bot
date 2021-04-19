@@ -14,8 +14,6 @@ CLIENT.on("message", function (message) {
   if (!message.content.startsWith(PREFIX)) return;
 
   COMMANDS.respond(message);
-
-  // COMMANDS[command](args).then((result) => message.channel.send(result));
 });
 
 CLIENT.login(TOKEN);
