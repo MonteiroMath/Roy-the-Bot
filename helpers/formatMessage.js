@@ -3,7 +3,14 @@ const { MessageEmbed } = require("discord.js");
 function formatMessage(data) {
   let { username, post_subject, post_text } = data;
 
+  //remove html tags
   let strippedPost = post_text.replace(/(<([^>]+)>)/gi, "");
+
+  //remove quote tags
+  strippedPost = strippedPost.replace(
+    /\[quote\].*\[\/quote\]/gi,
+    "[aqui tinha um quote mas o Gatti comeu]"
+  );
 
   const embed = new MessageEmbed()
     .setTitle(`${post_subject.replace("Re: ", "")}`)
