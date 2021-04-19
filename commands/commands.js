@@ -5,16 +5,7 @@ const desbandeto = require("./desbandeto");
 const post = require("./post");
 const classic = require("./classic");
 
-function test(args) {
-  console.log(args);
-
-  return "test";
-}
-
-function testWithArgs(args) {
-  console.log(args);
-  return args;
-}
+const parseCommand = require("../helpers/parseCommand");
 
 const COMMANDS = {
   oi,
@@ -25,4 +16,14 @@ const COMMANDS = {
   classic,
 };
 
-module.exports = COMMANDS;
+function respond(message) {
+  let { command, args } = parseCommand(message.content);
+
+  if (!command) return message.channel.send(COMMANDS.help());
+  if (!COMMANDS.hasOwnProperty(command))
+    return message.channel.send("Nao sei o que fazer com esse comando");
+
+  return COMMANDS[command](args).then((result) => message.channel.send(result));
+}
+
+module.exports = { respond };
