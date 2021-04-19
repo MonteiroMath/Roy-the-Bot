@@ -3,6 +3,7 @@ const help = require("./help");
 const bandeto = require("./bandeto");
 const desbandeto = require("./desbandeto");
 const post = require("./post");
+const classic = require("./classic");
 
 function test(args) {
   console.log(args);
@@ -21,6 +22,7 @@ const COMMANDS = {
   bandeto,
   desbandeto,
   post,
+  classic,
 };
 
 module.exports = COMMANDS;
