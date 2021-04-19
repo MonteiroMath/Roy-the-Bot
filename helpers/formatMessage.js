@@ -8,7 +8,7 @@ function formatMessage(data) {
 
   //remove quote tags
   strippedPost = strippedPost.replace(
-    /\[quote\].*\[\/quote\]/gi,
+    /\[quote.*\[\/quote\]/gis,
     "[aqui tinha um quote mas o Gatti comeu]"
   );
 
