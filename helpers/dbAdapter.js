@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 require("dotenv").config();
 
-//!mudar para dentro do getCOnnection
+//!mudar para dentro do getConnection
 var connection;
 
 function getConnection() {
