@@ -1,6 +1,5 @@
 const dbAdapter = require("../helpers/dbAdapter");
 const stripPost = require("../helpers/stripPost");
-const formatMessage = require("../helpers/formatMessage");
 
 function oi() {
   let query = `
