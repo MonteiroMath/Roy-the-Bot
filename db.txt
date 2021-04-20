@@ -1,0 +1,11 @@
+CREATE TABLE quotes (
+  channel bigint UNSIGNED NOT NULL,
+  message bigint UNSIGNED NOT NULL,
+  author varchar(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  content mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  time bigint UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+ALTER TABLE quotes
+  ADD PRIMARY KEY (message),
+  ADD KEY (author);

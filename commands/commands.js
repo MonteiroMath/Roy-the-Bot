@@ -4,8 +4,7 @@ const bandeto = require("./bandeto");
 const desbandeto = require("./desbandeto");
 const post = require("./post");
 const classic = require("./classic");
-
-
+const quote = require("./quote");
 
 const COMMANDS = {
   oi,
@@ -14,10 +13,7 @@ const COMMANDS = {
   desbandeto,
   post,
   classic,
-  quote: (args, ref) => {
-    console.log(ref);
-    return "quote command";
-  },
+  quote,
 };
 
 module.exports = COMMANDS;
