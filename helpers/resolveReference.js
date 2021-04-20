@@ -5,6 +5,8 @@ function resolveReference(message, command) {
     if (!reference || command !== "quote") resolve();
 
     message.channel.messages.fetch(reference.messageID).then((ref) => {
+      if (ref.author.username === "Roy The Dragoon") resolve();
+
       let result = {
         channel: reference.channelID,
         message: reference.messageID,

@@ -10,7 +10,7 @@ function post(args) {
   if (!args[0]) {
     //query for random post
     query = `
-            SELECT users.username, posts.post_text, posts.post_subject 
+            SELECT users.username, posts.post_text, posts.post_subject, posts.post_time 
             FROM posts INNER JOIN users 
             ON poster_id = user_id
             ORDER BY RAND()
@@ -18,7 +18,7 @@ function post(args) {
           `;
   } else if (args[0] === "main") {
     query = `
-            SELECT users.username, posts.post_text, posts.post_subject 
+            SELECT users.username, posts.post_text, posts.post_subject, posts.post_time 
             FROM posts INNER JOIN users 
             ON poster_id = user_id
             WHERE posts.post_subject LIKE "%Chat EEEEEEEEEEEE"
@@ -29,7 +29,7 @@ function post(args) {
     let autor = mysql.escape(`%${args[0]}%`);
 
     query = `
-            SELECT users.username, posts.post_text, posts.post_subject 
+            SELECT users.username, posts.post_text, posts.post_subject, posts.post_time 
             FROM posts INNER JOIN users 
             ON poster_id = user_id
             WHERE users.username LIKE ${autor}
