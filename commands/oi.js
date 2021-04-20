@@ -1,6 +1,8 @@
 const dbAdapter = require("../helpers/dbAdapter");
 const stripPost = require("../helpers/stripPost");
 
+const DB = "forum";
+
 function oi() {
   let query = `
   SELECT users.username, posts.post_text, posts.post_subject 
@@ -12,7 +14,7 @@ function oi() {
 `;
 
   return dbAdapter
-    .executeQuery(query)
+    .executeQuery(DB, query)
     .then((result) => stripPost(result[0].post_text))
     .catch((err) => {
       console.log(err);

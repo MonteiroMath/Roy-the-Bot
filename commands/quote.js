@@ -24,17 +24,23 @@ function getQuote() {
 function insertQuote(ref) {
   let content = mysql.escape(ref.content);
 
-  let query = `
-  INSERT INTO quotes (channel, message, author, content, time)
-  VALUES ${(ref.channel, ref.message, ref.author, content, ref.time)};
-  `;
+  let query = `INSERT INTO quotes (channel, message, author, content, time)
+  VALUES (${ref.channel}, ${ref.message}, '${ref.author}', ${content}, ${ref.time} )`;
 
-  return;
+  return dbAdapter
+    .executeQuery(DB, query)
+    .then((result) => {
+      return "Boa vou anotar essa";
+    })
+    .catch((err) => {
+      console.log(err);
+      return "deu algum pau no sistema eu acho";
+    });
 }
 
 function quote(args, ref) {
   if (!ref) {
-    return getQuote;
+    return getQuote();
   }
 
   return insertQuote(ref);
