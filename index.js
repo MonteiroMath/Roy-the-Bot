@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
-
+const parseCommand = require("./helpers/parseCommand");
+const resolveReference = require("./helpers/resolveReference");
 const COMMANDS = require("./commands/commands");
 require("dotenv").config();
 
@@ -13,7 +14,15 @@ CLIENT.on("message", function (message) {
   if (message.channel.name !== CHANNEL) return;
   if (!message.content.startsWith(PREFIX)) return;
 
-  COMMANDS.respond(message);
+  let { command, args } = parseCommand(message.content);
+
+  if (!command) return message.channel.send(COMMANDS.help());
+  if (!COMMANDS.hasOwnProperty(command))
+    return message.channel.send("Nao sei o que fazer com esse comando");
+
+  resolveReference(message, command)
+    .then((ref) => COMMANDS[command](args, ref))
+    .then((result) => message.channel.send(result));
 });
 
 CLIENT.login(TOKEN);
