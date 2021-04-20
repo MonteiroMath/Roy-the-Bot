@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 require("dotenv").config();
 
-function getData(db, query) {
+function executeQuery(db, query) {
   let con = mysql.createConnection({
     host: "localhost",
     user: "roythebot",
@@ -34,4 +34,4 @@ function getData(db, query) {
   });
 }
 
-module.exports = { getData };
+module.exports = { executeQuery };

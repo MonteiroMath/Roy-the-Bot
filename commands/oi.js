@@ -12,7 +12,7 @@ function oi() {
 `;
 
   return dbAdapter
-    .getData(query)
+    .executeQuery(query)
     .then((result) => stripPost(result[0].post_text))
     .catch((err) => {
       console.log(err);

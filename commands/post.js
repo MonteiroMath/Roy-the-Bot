@@ -39,7 +39,7 @@ function post(args) {
   }
 
   return dbAdapter
-    .getData(DB, query)
+    .executeQuery(DB, query)
     .then((result) => formatMessage(result[0]))
     .catch((err) => {
       console.log(err);
