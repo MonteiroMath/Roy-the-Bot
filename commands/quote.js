@@ -1,5 +1,5 @@
 const dbAdapter = require("../helpers/dbAdapter");
-const formatMessage = require("../helpers/formatMessage");
+const formatQuote = require("../helpers/formatQuote");
 const mysql = require("mysql");
 
 const DB = "quotes";
@@ -14,7 +14,7 @@ function getQuote() {
 
   return dbAdapter
     .executeQuery(DB, query)
-    .then((result) => formatMessage(result[0]))
+    .then((result) => formatQuote(result[0]))
     .catch((err) => {
       console.log(err);
       return "deu algum pau no sistema eu acho";
