@@ -2,6 +2,8 @@ const dbAdapter = require("../helpers/dbAdapter");
 const formatMessage = require("../helpers/formatMessage");
 const mysql = require("mysql");
 
+const DB = "forum";
+
 function post(args) {
   let query;
 
@@ -37,7 +39,7 @@ function post(args) {
   }
 
   return dbAdapter
-    .getData(query)
+    .getData(DB, query)
     .then((result) => formatMessage(result[0]))
     .catch((err) => {
       console.log(err);
