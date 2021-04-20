@@ -1,12 +1,12 @@
 const mysql = require("mysql");
 require("dotenv").config();
 
-function getData(query) {
+function getData(db, query) {
   let con = mysql.createConnection({
     host: "localhost",
     user: "roythebot",
     password: process.env.PASSWORD,
-    database: "forum",
+    database: db,
   });
 
   return new Promise(function (resolve, reject) {
