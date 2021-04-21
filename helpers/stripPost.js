@@ -4,6 +4,12 @@ function stripPost(post) {
 
   //remove quote tags
   strippedPost = strippedPost.replace(/\[quote.*\[\/quote\]/gis, "");
+  
+  //remove all bracket tags
+  strippedPost = strippedPost.replace(/\[*]/gi, "");
+
+  //remove all & tags
+  strippedPost = strippedPost.replace(/&*;/gi, "");
 
   return strippedPost;
 }
