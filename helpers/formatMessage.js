@@ -14,7 +14,7 @@ function formatMessage(data) {
     .setTitle(`${post_subject.replace("Re: ", "")}`)
     .setAuthor(username)
     .setDescription(strippedPost)
-    .setTimestamp(post_time);
+    .setTimestamp(post_time * 1000);
 
   return embed;
 }
