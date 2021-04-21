@@ -4,6 +4,9 @@ function stripPost(post) {
 
   //remove quote tags
   strippedPost = strippedPost.replace(/\[quote.*\[\/quote\]/gis, "");
+  
+  //remove img tags
+  strippedPost = strippedPost.replace(/\[\/*img]/gi, "");
 
   return strippedPost;
 }
