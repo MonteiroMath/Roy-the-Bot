@@ -1,5 +1,6 @@
 const dbAdapter = require("../helpers/dbAdapter");
 const formatQuote = require("../helpers/formatQuote");
+const stripEmojis = require("../helpers/stripEmojis");
 const mysql = require("mysql");
 
 const DB = "quotes";
@@ -22,7 +23,9 @@ function getQuote() {
 }
 
 function insertQuote(ref) {
-  let content = mysql.escape(ref.content);
+  let content = stripEmojis(ref.content);
+
+  content = mysql.escape(content);
 
   let query = `INSERT INTO quotes (channel, message, author, content, time)
   VALUES (${ref.channel}, ${ref.message}, '${ref.author}', ${content}, ${ref.time} )`;
