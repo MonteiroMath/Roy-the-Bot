@@ -25,6 +25,10 @@ function getQuote() {
 function insertQuote(ref) {
   let content = stripEmojis(ref.content);
 
+  if (!content) {
+    return "tirando o emoji acho que nao sobrou nada";
+  }
+
   content = mysql.escape(content);
 
   let query = `INSERT INTO quotes (channel, message, author, content, time)
