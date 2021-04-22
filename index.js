@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const TOKEN = process.env.BOT_TOKEN;
 const CLIENT = new Discord.Client();
-const PREFIX = "!roy";
+const PREFIX = "!beta";
 const CHANNEL = "foro";
 const CMD_EXCEPTIONS = ["quote", "oi"];
 const NSFW = "nsfw";
