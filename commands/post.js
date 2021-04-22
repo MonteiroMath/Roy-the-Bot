@@ -40,7 +40,13 @@ function post(args) {
 
   return dbAdapter
     .executeQuery(DB, query)
-    .then((result) => formatMessage(result[0]))
+    .then((result) => {
+      if (result.length === 0) {
+        return "nao sei quem e esse cara ai nao";
+      }
+
+      return formatMessage(result[0]);
+    })
     .catch((err) => {
       console.log(err);
       return "deu algum pau no sistema eu acho";
