@@ -1,6 +1,6 @@
+const mysql = require("mysql");
 const dbAdapter = require("../helpers/dbAdapter");
 const formatMessage = require("../helpers/formatClassicMessage");
-const mysql = require("mysql");
 
 const DB = "classic";
 
