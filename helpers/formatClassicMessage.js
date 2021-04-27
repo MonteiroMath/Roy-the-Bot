@@ -5,17 +5,16 @@ const renderPost = require("./renderPost");
 function formatMessage(data) {
   let { username, post_text, post_time } = data;
 
-  let strippedPost = stripPost(post_text);
+  return renderPost(post_text).then(() => {
+    const embed = new MessageEmbed()
+      .setTitle("Chat EEEEEEEEEEEE")
+      .setAuthor(username)
+      .attachFiles("./screenshot.png")
+      .setImage("attachment://screenshot.png")
+      .setFooter(post_time);
 
-  renderPost(strippedPost);
-
-  const embed = new MessageEmbed()
-    .setTitle("Chat EEEEEEEEEEEE")
-    .setAuthor(username)
-    .setDescription(strippedPost)
-    .setFooter(post_time);
-
-  return embed;
+    return embed;
+  });
 }
 
 module.exports = formatMessage;

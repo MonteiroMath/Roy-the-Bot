@@ -10,9 +10,9 @@ async function renderPost(post) {
   <div class="postlist restrain"> 
   <ol class="posts"> 
   <li class="postbitlegacy postbitim postcontainer old">
-  <div class="postbody">
+  <div id="ssthis" class="postbody">
   <div class="postrow">
-  <div class="content">
+  <div class="content" style="padding:30px">
     ${post}
   </div>
   </div>
@@ -30,7 +30,11 @@ async function renderPost(post) {
     path: "helpers/render/tibiabr.css",
   });
 
-  await page.screenshot({ path: "screenshot.png" });
+  const element = await page.$("#ssthis");
+
+  await element.screenshot({
+    path: "screenshot.png",
+  });
 
   await browser.close();
 }
