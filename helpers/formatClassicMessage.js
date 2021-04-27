@@ -2,15 +2,15 @@ const { MessageEmbed } = require("discord.js");
 const stripPost = require("./stripPost");
 
 function formatMessage(data) {
-  let { username, post_subject, post_text, post_time } = data;
+  let { username, post_text, post_time } = data;
 
   let strippedPost = stripPost(post_text);
 
   const embed = new MessageEmbed()
-    .setTitle(`${post_subject.replace("Re: ", "")}`)
+    .setTitle("Chat EEEEEEEEEEEE")
     .setAuthor(username)
     .setDescription(strippedPost)
-    .setTimestamp(post_time * 1000);
+    .setFooter(post_time);
 
   return embed;
 }
