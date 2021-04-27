@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const stripPost = require("./stripPost");
+const stripPost = require("./stripClassicPost");
 
 function formatMessage(data) {
   let { username, post_text, post_time } = data;
