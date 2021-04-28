@@ -5,7 +5,7 @@ const renderPost = require("./renderPost");
 function formatMessage(data) {
   let { username, post_text, post_time } = data;
 
-  return renderPost(post_text).then(() => {
+  return renderPost(data).then(() => {
     const embed = new MessageEmbed()
       .setTitle("Chat EEEEEEEEEEEE")
       .setAuthor(username)

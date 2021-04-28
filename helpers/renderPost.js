@@ -1,28 +1,13 @@
 const puppeteer = require("puppeteer");
+const setHtml = require("./setHtml");
 
-async function renderPost(post) {
+async function renderPost(data) {
+  if (!data.post_subject) data.post_subject = "Chat EEEEEEEEEEEE";
+
+  let html = setHtml(data);
+
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-
-  let html = `
-  <body>
-  <div class="body_wrapper">
-  <div class="postlist restrain"> 
-  <ol class="posts"> 
-  <li class="postbitlegacy postbitim postcontainer old">
-  <div id="ssthis" class="postbody">
-  <div class="postrow">
-  <div class="content" style="padding:30px">
-    ${post}
-  </div>
-  </div>
-  </div>
-  </li>
-  </ol>
-  </div>
-  </div>
-  </body>
-`;
 
   await page.setContent(html);
 
