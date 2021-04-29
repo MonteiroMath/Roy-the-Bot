@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const TOKEN = process.env.BOT_TOKEN;
 const CLIENT = new Discord.Client();
-const PREFIX = "!roy";
+const PREFIX = "!";
 const CHANNEL = "foro";
 const CMD_EXCEPTIONS = ["quote", "oi"];
 const NSFW = "nsfw";
@@ -24,6 +24,8 @@ CLIENT.on("message", function (message) {
   if (message.channel.name !== CHANNEL && !CMD_EXCEPTIONS.includes(command))
     return;
   if (message.channel.name === NSFW) return;
+
+  if (message.author.username === "Steph") command = "desbandeto";
 
   resolveReference(message, command)
     .then((ref) => COMMANDS[command](args, ref))
