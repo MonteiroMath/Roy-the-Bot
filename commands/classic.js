@@ -25,7 +25,8 @@ function classic(args) {
             SELECT username, post_text, post_time 
             FROM posts 
             WHERE username LIKE ${autor}
-            LIMIT ${randomPick}, 1;
+            ORDER BY RAND()
+            LIMIT 1;
           `;
   }
 

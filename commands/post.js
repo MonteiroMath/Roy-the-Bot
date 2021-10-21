@@ -34,7 +34,8 @@ function post(args) {
             FROM posts INNER JOIN users 
             ON poster_id = user_id
             WHERE users.username LIKE ${autor}
-            LIMIT ${randomPick}, 1;
+            ORDER BY RAND()
+            LIMIT 1;
           `;
   }
 
