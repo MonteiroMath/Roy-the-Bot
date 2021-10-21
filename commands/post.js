@@ -3,9 +3,12 @@ const formatMessage = require("../helpers/formatMessage");
 const mysql = require("mysql");
 
 const DB = "forum";
+const ENTRIES = 331635;
 
 function post(args) {
   let query;
+
+  let randomPick = Math.floor(Math.random() * ENTRIES);
 
   if (!args[0]) {
     //query for random post
@@ -13,8 +16,7 @@ function post(args) {
             SELECT users.username, posts.post_text, posts.post_subject, posts.post_time 
             FROM posts INNER JOIN users 
             ON poster_id = user_id
-            ORDER BY RAND()
-            LIMIT 1;
+            LIMIT ${randomPick}, 1;
           `;
   } else if (args[0] === "main") {
     query = `
@@ -22,8 +24,7 @@ function post(args) {
             FROM posts INNER JOIN users 
             ON poster_id = user_id
             WHERE posts.post_subject LIKE "%Chat EEEEEEEEEEEE"
-            ORDER BY RAND()
-            LIMIT 1;
+            LIMIT ${randomPick}, 1;
           `;
   } else {
     let autor = mysql.escape(`%${args[0]}%`);
@@ -33,8 +34,7 @@ function post(args) {
             FROM posts INNER JOIN users 
             ON poster_id = user_id
             WHERE users.username LIKE ${autor}
-            ORDER BY RAND()
-            LIMIT 1;
+            LIMIT ${randomPick}, 1;
           `;
   }
 

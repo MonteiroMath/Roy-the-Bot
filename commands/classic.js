@@ -4,17 +4,19 @@ const dbAdapter = require("../helpers/dbAdapter");
 const renderPost = require("../helpers/renderPost");
 
 const DB = "classic";
+const ENTRIES = 256613;
 
 function classic(args) {
   let query;
+
+  let randomPick = Math.floor(Math.random() * ENTRIES);
 
   if (!args[0]) {
     //query for random post
     query = `
             SELECT username, post_text, post_time 
             FROM posts 
-            ORDER BY RAND()
-            LIMIT 1;
+            LIMIT ${randomPick}, 1;
           `;
   } else {
     let autor = mysql.escape(`%${args[0]}%`);
@@ -23,8 +25,7 @@ function classic(args) {
             SELECT username, post_text, post_time 
             FROM posts 
             WHERE username LIKE ${autor}
-            ORDER BY RAND()
-            LIMIT 1;
+            LIMIT ${randomPick}, 1;
           `;
   }
 
