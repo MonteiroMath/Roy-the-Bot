@@ -3,7 +3,7 @@ function setHtml(data) {
 
   return `
   <body>
-    <div class="body_wrapper">
+    <div class="body_wrapper" style="max-width:550px">
       <div class="postlist restrain"> 
         <ol class="posts"> 
           <li class="postbitlegacy postbitim postcontainer old">
