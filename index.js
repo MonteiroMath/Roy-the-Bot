@@ -25,8 +25,6 @@ CLIENT.on("message", function (message) {
     return;
   if (message.channel.name === NSFW) return;
 
-  if (message.author.username === "Steph") command = "desbandeto";
-
   resolveReference(message, command)
     .then((ref) => COMMANDS[command](args, ref))
     .then((result) => message.channel.send(result));
