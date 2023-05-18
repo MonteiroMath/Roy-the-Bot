@@ -48,7 +48,6 @@ function getMainTopicPost() {
 }
 
 function getUserPost(username) {
-  
   return getTotalPosts(args[0])
     .then((totalPosts) => randomize(totalPosts))
     .then((randomPick) => {
@@ -69,7 +68,7 @@ function getTotalPosts(author) {
                   FROM users_posts_total
                   WHERE username LIKE ${autor}`;
 
-  return dbAdapter.executeQuery(DB, query).then((result) => result - 1);
+  return dbAdapter.executeQuery(DB, query).then((result) => result[0] - 1);
 }
 
 function getPost(query) {

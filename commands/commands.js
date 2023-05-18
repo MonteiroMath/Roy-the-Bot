@@ -12,7 +12,7 @@ const COMMANDS = {
   bandeto,
   desbandeto,
   post,
-  //classic,
+  classic,
   quote,
 };
 
