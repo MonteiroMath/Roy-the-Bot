@@ -29,12 +29,12 @@ function getUserPost(username) {
       return Math.floor(Math.random() * total_posts);
     })
     .then((randomPick) => {
-      const query = (query = `
+      const query = `
       SELECT username, post_text, post_time 
       FROM posts 
       WHERE username LIKE ${author}
       LIMIT ${randomPick}, 1;
-    `);
+    `;
 
       return getPost(query);
     });

@@ -27,7 +27,9 @@ function getRandomPost() {
       SELECT users.username, posts.post_text, posts.post_subject, posts.post_time 
       FROM posts INNER JOIN users 
       ON poster_id = user_id
-      LIMIT 1 OFFSET${randomPick};`;
+      LIMIT 1 OFFSET ${randomPick};`;
+
+
 
   return getPost(query);
 }
@@ -48,7 +50,7 @@ function getMainTopicPost() {
 }
 
 function getUserPost(username) {
-  return getTotalPosts(args[0])
+  return getTotalPosts(username)
     .then((totalPosts) => randomize(totalPosts))
     .then((randomPick) => {
       const query = `
@@ -79,6 +81,7 @@ function getPost(query) {
         return "nao sei quem e esse cara ai nao";
       }
 
+      console.log(result);
       return formatMessage(result[0]);
     })
     .catch((err) => {
