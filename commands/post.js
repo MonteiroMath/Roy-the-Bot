@@ -29,8 +29,6 @@ function getRandomPost() {
       ON poster_id = user_id
       LIMIT 1 OFFSET ${randomPick};`;
 
-
-
   return getPost(query);
 }
 
@@ -50,6 +48,7 @@ function getMainTopicPost() {
 }
 
 function getUserPost(username) {
+  const author = mysql.escape(`%${username}%`);
   return getTotalPosts(username)
     .then((totalPosts) => randomize(totalPosts))
     .then((randomPick) => {
@@ -57,7 +56,7 @@ function getUserPost(username) {
       SELECT users.username, posts.post_text, posts.post_subject, posts.post_time 
       FROM posts INNER JOIN users 
       ON poster_id = user_id
-      WHERE users.username LIKE %${username}%
+      WHERE users.username LIKE ${author}
       LIMIT ${randomPick}, 1;`;
 
       return getPost(query);
