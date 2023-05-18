@@ -1,9 +1,18 @@
+const { MessageAttachment } = require("discord.js");
 const dbAdapter = require("../helpers/dbAdapter");
 const formatQuote = require("../helpers/formatQuote");
 const stripEmojis = require("../helpers/stripEmojis");
 const mysql = require("mysql");
 
 const DB = "quotes";
+
+function quote(args, ref) {
+  if (!ref) {
+    return getQuote();
+  }
+
+  return insertQuote(ref);
+}
 
 function getQuote() {
   let query = `
@@ -18,7 +27,8 @@ function getQuote() {
     .then((result) => formatQuote(result[0]))
     .catch((err) => {
       console.log(err);
-      return "deu algum pau no sistema eu acho";
+      const attachment = new MessageAttachment("./imgs/error.gif");
+      return attachment;
     });
 }
 
@@ -36,21 +46,14 @@ function insertQuote(ref) {
 
   return dbAdapter
     .executeQuery(DB, query)
-    .then((result) => {
+    .then(() => {
       return "Boa vou anotar essa";
     })
     .catch((err) => {
       console.log(err);
-      return "deu algum pau no sistema eu acho";
+      const attachment = new MessageAttachment("./imgs/error.gif");
+      return attachment;
     });
-}
-
-function quote(args, ref) {
-  if (!ref) {
-    return getQuote();
-  }
-
-  return insertQuote(ref);
 }
 
 module.exports = quote;

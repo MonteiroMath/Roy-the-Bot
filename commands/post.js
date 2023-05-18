@@ -4,68 +4,93 @@ const mysql = require("mysql");
 
 const DB = "forum";
 
+const NUM_POSTS = {
+  total: 331635,
+  main: 206068,
+};
+
 function post(args) {
-  let entriesQuery, query, autor;
-
-  if (!args[0]) entriesQuery = `SELECT count(*) FROM posts`;
-  else if (args[0] === "main") {
-    entriesQuery = `
-    SELECT count(*) 
-    FROM posts 
-    WHERE posts.post_subject LIKE "%Chat EEEEEEEEEEEE";
-  `;
+  if (!args[0]) {
+    return getRandomPost();
+  } else if (args[0] === "main") {
+    return getMainTopicPost();
   } else {
-    autor = mysql.escape(`%${args[0]}%`);
-    entriesQuery = `SELECT count(*) 
-                    FROM posts INNER JOIN users 
-                    ON poster_id = user_id
-                    WHERE users.username LIKE ${autor}`;
+    return getUserPost(args[0]);
   }
+}
 
-  return dbAdapter.executeQuery(DB, entriesQuery).then((result) => {
-    entries = result[0]["count(*)"] - 1;
+function getRandomPost() {
+  const totalPosts = NUM_POSTS["total"];
+  const randomPick = randomize(totalPosts);
 
-    let randomPick = Math.floor(Math.random() * entries);
-
-    if (!args[0]) {
-      query = `
+  const query = `
       SELECT users.username, posts.post_text, posts.post_subject, posts.post_time 
       FROM posts INNER JOIN users 
       ON poster_id = user_id
-      LIMIT ${randomPick}, 1;
-    `;
-    } else if (args[0] === "main") {
-      query = `
+      LIMIT 1 OFFSET${randomPick};`;
+
+  return getPost(query);
+}
+
+function getMainTopicPost() {
+  const MAIN_ID = 2;
+  const totalPosts = NUM_POSTS["main"];
+  const randomPick = randomize(totalPosts);
+
+  const query = `
+  SELECT users.username, posts.post_text, posts.post_subject, posts.post_time 
+  FROM posts INNER JOIN users 
+  ON poster_id = user_id
+  WHERE posts.topic_id = ${MAIN_ID}
+  LIMIT ${randomPick}, 1;`;
+
+  return getPost(query);
+}
+
+function getUserPost(username) {
+  
+  return getTotalPosts(args[0])
+    .then((totalPosts) => randomize(totalPosts))
+    .then((randomPick) => {
+      const query = `
       SELECT users.username, posts.post_text, posts.post_subject, posts.post_time 
       FROM posts INNER JOIN users 
       ON poster_id = user_id
-      WHERE posts.post_subject LIKE "%Chat EEEEEEEEEEEE"
-      LIMIT ${randomPick}, 1;
-    `;
-    } else {
-      query = `
-      SELECT users.username, posts.post_text, posts.post_subject, posts.post_time 
-      FROM posts INNER JOIN users 
-      ON poster_id = user_id
-      WHERE users.username LIKE ${autor}
-      LIMIT ${randomPick}, 1;
-    `;
-    }
+      WHERE users.username LIKE %${username}%
+      LIMIT ${randomPick}, 1;`;
 
-    return dbAdapter
-      .executeQuery(DB, query)
-      .then((result) => {
-        if (result.length === 0) {
-          return "nao sei quem e esse cara ai nao";
-        }
+      return getPost(query);
+    });
+}
 
-        return formatMessage(result[0]);
-      })
-      .catch((err) => {
-        console.log(err);
-        return "deu algum pau no sistema eu acho";
-      });
-  });
+function getTotalPosts(author) {
+  const autor = mysql.escape(`%${author}%`);
+  const query = `SELECT total_posts 
+                  FROM users_posts_total
+                  WHERE username LIKE ${autor}`;
+
+  return dbAdapter.executeQuery(DB, query).then((result) => result - 1);
+}
+
+function getPost(query) {
+  return dbAdapter
+    .executeQuery(DB, query)
+    .then((result) => {
+      if (result.length === 0) {
+        return "nao sei quem e esse cara ai nao";
+      }
+
+      return formatMessage(result[0]);
+    })
+    .catch((err) => {
+      console.log(err);
+      const attachment = new MessageAttachment("./imgs/error.gif");
+      return attachment;
+    });
+}
+
+function randomize(totalPosts) {
+  return Math.floor(Math.random() * totalPosts);
 }
 
 module.exports = post;
