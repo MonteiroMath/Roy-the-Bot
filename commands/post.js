@@ -49,9 +49,14 @@ function getMainTopicPost() {
 
 function getUserPost(username) {
   const author = mysql.escape(`%${username}%`);
-  return getTotalPosts(username)
+
+  return getTotalPosts(author)
     .then((totalPosts) => randomize(totalPosts))
     .then((randomPick) => {
+      if (isNaN(randomPick)) {
+        return "Não conheco esse cara ai nao";
+      }
+
       const query = `
       SELECT users.username, posts.post_text, posts.post_subject, posts.post_time 
       FROM posts INNER JOIN users 
@@ -64,12 +69,17 @@ function getUserPost(username) {
 }
 
 function getTotalPosts(author) {
-  const autor = mysql.escape(`%${author}%`);
   const query = `SELECT total_posts 
                   FROM users_posts_total
-                  WHERE username LIKE ${autor}`;
+                  WHERE username LIKE ${author}`;
 
-  return dbAdapter.executeQuery(DB, query).then((result) => result[0] - 1);
+  return dbAdapter.executeQuery(DB, query).then((result) => {
+    if (result.length == 0) {
+      return NaN;
+    }
+
+    return result[0].total_posts - 1;
+  });
 }
 
 function getPost(query) {
@@ -80,7 +90,6 @@ function getPost(query) {
         return "nao sei quem e esse cara ai nao";
       }
 
-      console.log(result);
       return formatMessage(result[0]);
     })
     .catch((err) => {

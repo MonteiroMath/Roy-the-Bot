@@ -45,7 +45,7 @@ function getTotalPosts(author) {
                   FROM user_posts_num
                   WHERE username LIKE ${author}`;
 
-  return dbAdapter.executeQuery(DB, query).then((result) => result[0] - 1);
+  return dbAdapter.executeQuery(DB, query).then((result) => result[0].total_posts - 1);
 }
 
 function getPost(query) {
