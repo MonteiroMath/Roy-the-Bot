@@ -29,6 +29,10 @@ function getUserPost(username) {
       return Math.floor(Math.random() * total_posts);
     })
     .then((randomPick) => {
+      if (isNaN(randomPick)) {
+        return "Não conheco esse cara ai nao";
+      }
+
       const query = `
       SELECT username, post_text, post_time 
       FROM posts 
@@ -45,7 +49,13 @@ function getTotalPosts(author) {
                   FROM user_posts_num
                   WHERE username LIKE ${author}`;
 
-  return dbAdapter.executeQuery(DB, query).then((result) => result[0].total_posts - 1);
+  return dbAdapter.executeQuery(DB, query).then((result) => {
+    if (result.length == 0) {
+      return NaN;
+    }
+
+    return result[0].total_posts - 1;
+  });
 }
 
 function getPost(query) {

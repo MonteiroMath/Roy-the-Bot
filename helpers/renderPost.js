@@ -7,7 +7,7 @@ async function renderPost(data) {
 
     let html = setHtml(data);
 
-    const browser = await puppeteer.launch({
+    var browser = await puppeteer.launch({
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
