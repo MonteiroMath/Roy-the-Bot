@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 const { MessageAttachment } = require("discord.js");
 const dbAdapter = require("../helpers/dbAdapter");
-const renderPost = require("../helpers/renderPost");
+const formatClassic = require("../helpers/formatClassic");
 const DB = "classic";
 
 function classic(args) {
@@ -66,11 +66,7 @@ function getPost(query) {
         return "nao sei quem e esse cara ai nao";
       }
 
-      return renderPost(result[0]).then(() => {
-        const attachment = new MessageAttachment("./screenshot.png");
-
-        return attachment;
-      });
+      return formatClassic(result[0]);
     })
     .catch((err) => {
       console.log(err);

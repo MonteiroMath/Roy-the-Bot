@@ -1,4 +1,5 @@
 const dbAdapter = require("../helpers/dbAdapter");
+const { MessageAttachment } = require("discord.js");
 const formatMessage = require("../helpers/formatMessage");
 const mysql = require("mysql");
 
